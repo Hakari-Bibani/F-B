@@ -244,6 +244,10 @@ def main():
     global image1, image2
     image1, image2 = load_images()
 
+      st.markdown("---")
+    st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
+    م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
+
     st.sidebar.title("Choose Calculator")
     calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
 
@@ -252,9 +256,6 @@ def main():
     elif calculator_type == "Boiling Point":
         BoilingPointCalculator()
 
-    st.markdown("---")
-    st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
-    م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
-
+  
 if __name__ == "__main__":
     main()
