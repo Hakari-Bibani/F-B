@@ -31,13 +31,7 @@ class FreezingPointCalculator:
 
     def create_layout(self):
         if image1 is not None and image2 is not None:
-            col1, col2 = st.columns(2)
-            with col1:
-                st.image(image1, use_column_width=True)
-                st.caption("Image 1 Description")
-            with col2:
-                st.image(image2, use_column_width=True)
-                st.caption("Image 2 Description")
+            st.image([image1, image2], width=100)
 
         col1, col2, col3 = st.columns(3)
 
@@ -234,8 +228,6 @@ class FreezingPointCalculator:
 
         st.write("-" * 50)
 
-# ... (previous code remains unchanged)
-
 class BoilingPointCalculator:
     def __init__(self):
         st.title("بەرزبوونەوەی پلەی کوڵان: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی ")
@@ -243,13 +235,7 @@ class BoilingPointCalculator:
 
     def create_layout(self):
         if image1 is not None and image2 is not None:
-            col1, col2 = st.columns(2)
-            with col1:
-                st.image(image1, use_column_width=True)
-                st.caption("Image 1 Description")
-            with col2:
-                st.image(image2, use_column_width=True)
-                st.caption("Image 2 Description")
+            st.image([image1, image2], width=100)
 
         col1, col2, col3 = st.columns(3)
 
@@ -282,11 +268,6 @@ class BoilingPointCalculator:
             self.calculate()
         if self.clear_button:
             self.clear_inputs()
-
-    # The rest of the methods for BoilingPointCalculator remain unchanged
-    ...
-
-# ... (rest of the script remains unchanged)
 
     # The rest of the methods for BoilingPointCalculator are similar to FreezingPointCalculator
     # You should implement them similarly, replacing 'Tf' with 'Tb' where appropriate
