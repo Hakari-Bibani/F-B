@@ -427,13 +427,8 @@ class BoilingPointCalculator:
         for calc in calculations:
             self.try_calculate_value(inputs, calc['param'], calc['func'], calc['equation'], calc['params'])
 
-        results = {param: inputs[param] for param in inputs if inputs[param] is not None}
-        st.write("نتیجەکان")
-        st.write("-" * 50)
-        for key, value in results.items():
-            st.write(f"{key}: {self.format_value(value)}")
-
-
+                st.write("-" * 50)
+    
 def main():
     global image1, image2
     image1, image2 = load_images()
