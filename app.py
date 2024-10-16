@@ -1,38 +1,13 @@
+
 import streamlit as st
 import numpy as np
-from PIL import Image
-import os
-
-def load_images():
-    try:
-        # Get the directory of the current script
-        current_dir = os.path.dirname(__file__)
-        
-        # Construct the full path to the images
-        image1_path = os.path.join(current_dir, "image1.jpg")
-        image2_path = os.path.join(current_dir, "image2.jpg")
-        
-        # Open the images
-        image1 = Image.open(image1_path)
-        image2 = Image.open(image2_path)
-        
-        return image1, image2
-    except FileNotFoundError:
-        st.warning("Image files not found. Displaying app without images.")
-        return None, None
-    except Exception as e:
-        st.error(f"An error occurred while loading images: {str(e)}")
-        return None, None
 
 class FreezingPointCalculator:
     def __init__(self):
-        st.title("نزمبونەوەی پلەی بەستن: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی")
+        st.title("کیمیایی پۆلی ١٢ / کەرتی (١-٢)")
         self.create_layout()
 
     def create_layout(self):
-        if image1 is not None and image2 is not None:
-            st.image([image1, image2], width=100)
-
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -73,7 +48,8 @@ class FreezingPointCalculator:
         for key in keys_to_clear:
             if key in st.session_state:
                 del st.session_state[key]
-
+        
+        # Clear all input fields without rerunning
         for key in keys_to_clear:
             st.session_state[key] = ""
 
@@ -88,8 +64,8 @@ class FreezingPointCalculator:
         if value is None:
             return None
         if from_unit == 'Kelvin':
-            return value - 273.15
-        return value
+            return value - 273.15  # Convert to Celsius
+        return value  # Already in Celsius
 
     def convert_mass(self, value, from_unit, to_unit):
         if value is None or from_unit == to_unit:
@@ -134,6 +110,7 @@ class FreezingPointCalculator:
             'kg_solvent': self.get_float_value("kg_solvent")
         }
 
+        # Handle unit conversions
         inputs['t_solution'] = self.convert_temperature(
             inputs['t_solution'],
             st.session_state.t_solution_unit
@@ -228,61 +205,5 @@ class FreezingPointCalculator:
 
         st.write("-" * 50)
 
-class BoilingPointCalculator:
-    def __init__(self):
-        st.title("بەرزبوونەوەی پلەی کوڵان: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی ")
-        self.create_layout()
-
-    def create_layout(self):
-        if image1 is not None and image2 is not None:
-            st.image([image1, image2], width=100)
-
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            self.delta_tb_input = st.text_input("ΔTb:", key="delta_tb")
-            self.kb_input = st.text_input("Kb:", key="kb")
-            self.molality_input = st.text_input("**molality:**", key="molality")
-
-        with col2:
-            self.t_solution_input = st.text_input("**پلەی کوڵانی گیراوە:**", key="t_solution")
-            self.t_solution_unit = st.selectbox("یەکە:", ["Celsius", "Kelvin"], key="t_solution_unit")
-            self.t_solvent_input = st.text_input("**پلەی کوڵانی توێنەر:**", key="t_solvent")
-            self.t_solvent_unit = st.selectbox("یەکە:", ["Celsius", "Kelvin"], key="t_solvent_unit")
-
-        with col3:
-            self.mass_solute_input = st.text_input("**بارستەی تواوە:**", key="mass_solute")
-            self.mass_solute_unit = st.selectbox("یەکە:", ["grams", "kilograms"], key="mass_solute_unit")
-            self.mr_input = st.text_input("**بارستەی مۆڵی  Mr:**", key="mr")
-            self.moles_solute_input = st.text_input("**مۆڵی تواوە:**", key="moles_solute")
-            self.kg_solvent_input = st.text_input("**بارستەی توێنەر:**", key="kg_solvent")
-            self.kg_solvent_unit = st.selectbox("یەکە:", ["grams", "kilograms"], key="kg_solvent_unit")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            self.calculate_button = st.button("**ژمێرکاری**", key="calculate")
-        with col2:
-            self.clear_button = st.button("**سڕینەوە**", key="clear")
-
-        if self.calculate_button:
-            self.calculate()
-        if self.clear_button:
-            self.clear_inputs()
-
-    # The rest of the methods for BoilingPointCalculator are similar to FreezingPointCalculator
-    # You should implement them similarly, replacing 'Tf' with 'Tb' where appropriate
-
-def main():
-    global image1, image2
-    image1, image2 = load_images()
-
-    st.sidebar.title("Choose Calculator")
-    calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
-
-    if calculator_type == "Freezing Point":
-        FreezingPointCalculator()
-    elif calculator_type == "Boiling Point":
-        BoilingPointCalculator()
-
 if __name__ == "__main__":
-    main()
+    calculator = FreezingPointCalculator()
