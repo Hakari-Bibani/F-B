@@ -241,6 +241,11 @@ class BoilingPointCalculator:
         st.title("بەرزبوونەوەی پلەی کوڵان: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی ")
         self.create_layout()
 
+    class BoilingPointCalculator:
+    def __init__(self):
+        st.title("بەرزبوونەوەی پلەی کوڵان: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی ")
+        self.create_layout()
+
     def create_layout(self):
         if image1 is not None and image2 is not None:
             col1, col2 = st.columns(2)
@@ -283,7 +288,7 @@ class BoilingPointCalculator:
         if self.clear_button:
             self.clear_inputs()
 
-   def calculate(self):
+    def calculate(self):
         st.write("هەنگاوەکانی ژمێرکاری")
         st.write("-" * 50)
 
@@ -308,7 +313,6 @@ class BoilingPointCalculator:
             inputs['t_solvent'],
             st.session_state.t_solvent_unit
         )
-        # Mass conversion
         if inputs['mass_solute'] is not None:
             inputs['mass_solute'] = self.convert_mass(
                 inputs['mass_solute'],
@@ -322,7 +326,6 @@ class BoilingPointCalculator:
                 'kilograms'
             )
 
-        # Similar calculation list as in FreezingPointCalculator
         calculations = [
             {
                 'param': 'delta_tb',
@@ -339,7 +342,6 @@ class BoilingPointCalculator:
             # Add other relevant calculations...
         ]
 
-        # Implement calculation loop
         while True:
             changed = False
             for calc in calculations:
