@@ -249,7 +249,9 @@ def main():
 
           # Move the sentence to the top of the app
     st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
- م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
+  </p> """, unsafe_allow_html=True)
+    
+ st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'>  م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
 
     st.sidebar.title("Choose Calculator")
     calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
