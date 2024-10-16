@@ -34,10 +34,10 @@ class FreezingPointCalculator:
             col1, col2 = st.columns(2)
             with col1:
                 st.image(image1, use_column_width=True)
-                st.caption("Image 1 Description")
+                st.caption("م.هەکاری جلال")
             with col2:
                 st.image(image2, use_column_width=True)
-                st.caption("Image 2 Description")
+                st.caption("گروپی تێلێگرام")
 
         col1, col2, col3 = st.columns(3)
 
@@ -309,7 +309,8 @@ def main():
     st.markdown("---")
 
     # Add the footer sentence
-    st.markdown("<p style='text-align: center; color: gray; font-style: italic;'>دروستکردنی بەرنامە: م.هەکاری جلال</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: gray; font-style: italic;'>بۆ یەکەمین جار ئەم بەرنامەیە  دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق  دا. هیوادارم سوودی لێوەربگرن.
+    م. هەکاری جلال محمد</p>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
