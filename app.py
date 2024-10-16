@@ -256,6 +256,7 @@ def main():
         BoilingPointCalculator()
 
     st.markdown("---")
+        # Move the sentence to the top of the app
     st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
     م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
 
