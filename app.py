@@ -244,7 +244,7 @@ def main():
     global image1, image2
     image1, image2 = load_images()
 
-      st.markdown("---")
+    # Add the sentence at the top of the app
     st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
     م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
 
@@ -256,6 +256,4 @@ def main():
     elif calculator_type == "Boiling Point":
         BoilingPointCalculator()
 
-  
-if __name__ == "__main__":
-    main()
+    st.markdown("---")
