@@ -34,10 +34,10 @@ class FreezingPointCalculator:
             col1, col2 = st.columns(2)
             with col1:
                 st.image(image1, use_column_width=True)
-                st.caption("م.هەکاری جلال")
+                st.caption("Image 1 Description")
             with col2:
                 st.image(image2, use_column_width=True)
-                st.caption("گروپی تێلێگرام")
+                st.caption("Image 2 Description")
 
         col1, col2, col3 = st.columns(3)
 
@@ -291,8 +291,6 @@ class BoilingPointCalculator:
     # The rest of the methods for BoilingPointCalculator are similar to FreezingPointCalculator
     # You should implement them similarly, replacing 'Tf' with 'Tb' where appropriate
 
-# ... (previous code remains unchanged)
-
 def main():
     global image1, image2
     image1, image2 = load_images()
@@ -304,13 +302,6 @@ def main():
         FreezingPointCalculator()
     elif calculator_type == "Boiling Point":
         BoilingPointCalculator()
-
-    # Add a horizontal line for visual separation
-    st.markdown("---")
-
-   # Add the header sentence
-st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
-م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
