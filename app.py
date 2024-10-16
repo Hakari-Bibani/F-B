@@ -4,18 +4,25 @@ from PIL import Image
 import os
 
 def load_images():
-    # Get the directory of the current script
-    current_dir = os.path.dirname(__file__)
-    
-    # Construct the full path to the images
-    image1_path = os.path.join(current_dir, "image1.jpg")
-    image2_path = os.path.join(current_dir, "image2.jpg")
-    
-    # Open the images
-    image1 = Image.open(image1_path)
-    image2 = Image.open(image2_path)
-    
-    return image1, image2
+    try:
+        # Get the directory of the current script
+        current_dir = os.path.dirname(__file__)
+        
+        # Construct the full path to the images
+        image1_path = os.path.join(current_dir, "image1.jpg")
+        image2_path = os.path.join(current_dir, "image2.jpg")
+        
+        # Open the images
+        image1 = Image.open(image1_path)
+        image2 = Image.open(image2_path)
+        
+        return image1, image2
+    except FileNotFoundError:
+        st.warning("Image files not found. Displaying app without images.")
+        return None, None
+    except Exception as e:
+        st.error(f"An error occurred while loading images: {str(e)}")
+        return None, None
 
 class FreezingPointCalculator:
     def __init__(self):
@@ -23,8 +30,9 @@ class FreezingPointCalculator:
         self.create_layout()
 
     def create_layout(self):
-        # Display the images at the top of the layout
-        st.image([image1, image2], width=100)  # Adjust width as needed
+        # Display the images at the top of the layout if they were loaded successfully
+        if image1 is not None and image2 is not None:
+            st.image([image1, image2], width=100)  # Adjust width as needed
         
         col1, col2, col3 = st.columns(3)
         # ... rest of the method remains the same ...
@@ -35,8 +43,9 @@ class BoilingPointCalculator:
         self.create_layout()
 
     def create_layout(self):
-        # Display the images at the top of the layout
-        st.image([image1, image2], width=100)  # Adjust width as needed
+        # Display the images at the top of the layout if they were loaded successfully
+        if image1 is not None and image2 is not None:
+            st.image([image1, image2], width=100)  # Adjust width as needed
         
         col1, col2, col3 = st.columns(3)
         # ... rest of the method remains the same ...
