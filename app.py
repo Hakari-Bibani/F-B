@@ -26,8 +26,7 @@ def load_images():
 
 class FreezingPointCalculator:
     def __init__(self):
-        st.title(" نزمبونەوەی پلەی بەستن - تواوەی نائەلیکترۆلیتی
-        ئەم بەرنامەیە دروستکراوە لەلایەن: م.هەکاری جلال محمد")
+        st.title("نزمبونەوەی پلەی بەستن: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی")
         self.create_layout()
 
     def create_layout(self):
