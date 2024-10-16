@@ -309,13 +309,7 @@ def main():
     st.markdown("---")
 
    # Add the footer sentence
-st.markdown("""
-<p style='text-align: center; color: gray; font-style: italic;'>
-بۆ یەکەمین جار ئەم بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. 
-هیوادارم سوودی لێوەربگرن.
-م. هەکاری جلال محمد
-</p>
-""", unsafe_allow_html=True)
+st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن. م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
