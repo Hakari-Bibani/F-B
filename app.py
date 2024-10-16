@@ -227,10 +227,7 @@ class BaseCalculator:
                 break
 
         st.write("-" * 50)
-        st.write("ئەنجامەکانی کۆتایی:")
-        for key, value in inputs.items():
-            st.write(f"{key}: {self.format_value(value)}")
-
+      
 class FreezingPointCalculator(BaseCalculator):
     def __init__(self):
         self.t_symbol = "Tf"
