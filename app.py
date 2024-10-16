@@ -246,10 +246,10 @@ class BoilingPointCalculator:
             col1, col2 = st.columns(2)
             with col1:
                 st.image(image1, use_column_width=True)
-                st.caption("Image 1 Description")
+                st.caption("م.هەکاری جلال")
             with col2:
                 st.image(image2, use_column_width=True)
-                st.caption("Image 2 Description")
+                st.caption("گروپی تێلێگرام")
 
         col1, col2, col3 = st.columns(3)
 
@@ -283,15 +283,156 @@ class BoilingPointCalculator:
         if self.clear_button:
             self.clear_inputs()
 
-    # The rest of the methods for BoilingPointCalculator remain unchanged
-    ...
+    def clear_inputs(self):
+        keys_to_clear = [
+            "delta_tb", "kb", "molality", "t_solution", "t_solvent",
+            "mass_solute", "mr", "moles_solute", "kg_solvent"
+        ]
+        for key in keys_to_clear:
+            if key in st.session_state:
+                del st.session_state[key]
 
-# ... (rest of the script remains unchanged)
+        for key in keys_to_clear:
+            st.session_state[key] = ""
 
-    # The rest of the methods for BoilingPointCalculator are similar to FreezingPointCalculator
-    # You should implement them similarly, replacing 'Tf' with 'Tb' where appropriate
+    def get_float_value(self, key):
+        try:
+            value = st.session_state[key].strip()
+            return float(value) if value else None
+        except ValueError:
+            return None
 
-# ... (previous code remains unchanged)
+    def convert_temperature(self, value, from_unit):
+        if value is None:
+            return None
+        if from_unit == 'Kelvin':
+            return value - 273.15
+        return value
+
+    def convert_mass(self, value, from_unit, to_unit):
+        if value is None or from_unit == to_unit:
+            return value
+        if from_unit == 'grams' and to_unit == 'kilograms':
+            return value / 1000
+        if from_unit == 'kilograms' and to_unit == 'grams':
+            return value * 1000
+
+    def format_value(self, value):
+        return f"{value:.4f}" if value is not None else "unknown"
+
+    def show_calculation_step(self, equation, values, result):
+        if equation == 'ΔTb = گیراوە-T - توێنەر-T':
+            values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
+        else:
+            values_str = " = " + " / ".join(f"{v:.4f}" for v in values)
+        st.write(f"{equation}{values_str} = {result:.4f}")
+
+    def try_calculate_value(self, inputs, param_name, calculation_func, equation, params_needed):
+        if inputs[param_name] is None and all(inputs[p] is not None for p in params_needed):
+            values = [inputs[p] for p in params_needed]
+            result = calculation_func(*values)
+            self.show_calculation_step(equation, values, result)
+            inputs[param_name] = result
+            return True
+        return False
+
+    def calculate(self):
+        st.write("هەنگاوەکانی ژمێرکاری")
+        st.write("-" * 50)
+
+        inputs = {
+            'delta_tb': self.get_float_value("delta_tb"),
+            'kb': self.get_float_value("kb"),
+            'molality': self.get_float_value("molality"),
+            't_solution': self.get_float_value("t_solution"),
+            't_solvent': self.get_float_value("t_solvent"),
+            'mass_solute': self.get_float_value("mass_solute"),
+            'mr': self.get_float_value("mr"),
+            'moles_solute': self.get_float_value("moles_solute"),
+            'kg_solvent': self.get_float_value("kg_solvent")
+        }
+
+        inputs['t_solution'] = self.convert_temperature(
+            inputs['t_solution'],
+            st.session_state.t_solution_unit
+        )
+        inputs['t_solvent'] = self.convert_temperature(
+            inputs['t_solvent'],
+            st.session_state.t_solvent_unit
+        )
+        if inputs['mass_solute'] is not None:
+            inputs['mass_solute'] = self.convert_mass(
+                inputs['mass_solute'],
+                st.session_state.mass_solute_unit,
+                'grams'
+            )
+        if inputs['kg_solvent'] is not None:
+            inputs['kg_solvent'] = self.convert_mass(
+                inputs['kg_solvent'],
+                st.session_state.kg_solvent_unit,
+                'kilograms'
+            )
+
+        calculations = [
+            {
+                'param': 'delta_tb',
+                'func': lambda kb, m: kb * m,
+                'equation': 'ΔTb = Kb × molality',
+                'params': ['kb', 'molality']
+            },
+            {
+                'param': 'delta_tb',
+                'func': lambda ts, tsv: ts - tsv,
+                'equation': 'ΔTb = گیراوە-T - توێنەر-T',
+                'params': ['t_solution', 't_solvent']
+            },
+            {
+                'param': 'molality',
+                'func': lambda dt, kb: dt / kb,
+                'equation': 'molality = ΔTb / Kb',
+                'params': ['delta_tb', 'kb']
+            },
+            {
+                'param': 'molality',
+                'func': lambda mol, kg: mol / kg,
+                'equation': 'molality = تواوە-mole / توێنەر-Kg',
+                'params': ['moles_solute', 'kg_solvent']
+            },
+            {
+                'param': 'moles_solute',
+                'func': lambda mass, mr: mass / mr,
+                'equation': 'تواوە-mole = تواوە-mass / Mr',
+                'params': ['mass_solute', 'mr']
+            },
+            {
+                'param': 'moles_solute',
+                'func': lambda m, kg: m * kg,
+                'equation': 'تواوە-mole = molality × توێنەر-Kg',
+                'params': ['molality', 'kg_solvent']
+            },
+            {
+                'param': 'mass_solute',
+                'func': lambda mol, mr: mol * mr,
+                'equation': 'تواوە-mass = تواوە-mole × Mr',
+                'params': ['moles_solute', 'mr']
+            },
+            {
+                'param': 'kg_solvent',
+                'func': lambda mol, m: mol / m,
+                'equation': 'توێنەر-Kg = تواوە-mole / molality',
+                'params': ['moles_solute', 'molality']
+            }
+        ]
+
+        for calc in calculations:
+            self.try_calculate_value(inputs, calc['param'], calc['func'], calc['equation'], calc['params'])
+
+        results = {param: inputs[param] for param in inputs if inputs[param] is not None}
+        st.write("نتیجەکان")
+        st.write("-" * 50)
+        for key, value in results.items():
+            st.write(f"{key}: {self.format_value(value)}")
+
 
 def main():
     global image1, image2
@@ -305,9 +446,7 @@ def main():
     elif calculator_type == "Boiling Point":
         BoilingPointCalculator()
 
-    # Add a horizontal line for visual separation
-    st.markdown("---")
-
+  
    # Add the footer sentence
 st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
 م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
