@@ -227,7 +227,10 @@ class BaseCalculator:
                 break
 
         st.write("-" * 50)
-      
+        st.write("ئەنجامەکانی کۆتایی:")
+        for key, value in inputs.items():
+            st.write(f"{key}: {self.format_value(value)}")
+
 class FreezingPointCalculator(BaseCalculator):
     def __init__(self):
         self.t_symbol = "Tf"
@@ -244,11 +247,6 @@ def main():
     global image1, image2
     image1, image2 = load_images()
 
-    # Move the sentence to the top of the app
-    st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> 
-    بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. 
-    هیوادارم سوودی لێوەربگرن. م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
-
     st.sidebar.title("Choose Calculator")
     calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
 
@@ -258,3 +256,8 @@ def main():
         BoilingPointCalculator()
 
     st.markdown("---")
+    st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
+    م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    main()
