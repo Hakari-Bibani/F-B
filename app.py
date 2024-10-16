@@ -236,11 +236,6 @@ class FreezingPointCalculator:
 
 # ... (previous code remains unchanged)
 
-class BoilingPointCalculator:
-    def __init__(self):
-        st.title("بەرزبوونەوەی پلەی کوڵان: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی ")
-        self.create_layout()
-
     class BoilingPointCalculator:
     def __init__(self):
         st.title("بەرزبوونەوەی پلەی کوڵان: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی ")
