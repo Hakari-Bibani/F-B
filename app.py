@@ -283,19 +283,78 @@ class BoilingPointCalculator:
         if self.clear_button:
             self.clear_inputs()
 
-    # The rest of the methods for BoilingPointCalculator remain unchanged
-    ...
+   def calculate(self):
+        st.write("هەنگاوەکانی ژمێرکاری")
+        st.write("-" * 50)
 
-# ... (rest of the script remains unchanged)
+        inputs = {
+            'delta_tb': self.get_float_value("delta_tb"),
+            'kb': self.get_float_value("kb"),
+            'molality': self.get_float_value("molality"),
+            't_solution': self.get_float_value("t_solution"),
+            't_solvent': self.get_float_value("t_solvent"),
+            'mass_solute': self.get_float_value("mass_solute"),
+            'mr': self.get_float_value("mr"),
+            'moles_solute': self.get_float_value("moles_solute"),
+            'kg_solvent': self.get_float_value("kg_solvent")
+        }
 
-    # The rest of the methods for BoilingPointCalculator are similar to FreezingPointCalculator
-    # You should implement them similarly, replacing 'Tf' with 'Tb' where appropriate
+        # Convert temperatures and masses as needed
+        inputs['t_solution'] = self.convert_temperature(
+            inputs['t_solution'],
+            st.session_state.t_solution_unit
+        )
+        inputs['t_solvent'] = self.convert_temperature(
+            inputs['t_solvent'],
+            st.session_state.t_solvent_unit
+        )
+        # Mass conversion
+        if inputs['mass_solute'] is not None:
+            inputs['mass_solute'] = self.convert_mass(
+                inputs['mass_solute'],
+                st.session_state.mass_solute_unit,
+                'grams'
+            )
+        if inputs['kg_solvent'] is not None:
+            inputs['kg_solvent'] = self.convert_mass(
+                inputs['kg_solvent'],
+                st.session_state.kg_solvent_unit,
+                'kilograms'
+            )
 
-# ... (previous code remains unchanged)
+        # Similar calculation list as in FreezingPointCalculator
+        calculations = [
+            {
+                'param': 'delta_tb',
+                'func': lambda kb, m: kb * m,
+                'equation': 'ΔTb = Kb × molality',
+                'params': ['kb', 'molality']
+            },
+            {
+                'param': 'molality',
+                'func': lambda dt, kb: dt / kb,
+                'equation': 'molality = ΔTb / Kb',
+                'params': ['delta_tb', 'kb']
+            },
+            # Add other relevant calculations...
+        ]
 
-def main():
-    global image1, image2
-    image1, image2 = load_images()
+        # Implement calculation loop
+        while True:
+            changed = False
+            for calc in calculations:
+                if self.try_calculate_value(
+                    inputs,
+                    calc['param'],
+                    calc['func'],
+                    calc['equation'],
+                    calc['params']
+                ):
+                    changed = True
+            if not changed:
+                break
+
+        st.write("-" * 50)
 
     st.sidebar.title("Choose Calculator")
     calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
