@@ -30,8 +30,17 @@ class FreezingPointCalculator:
         self.create_layout()
 
     def create_layout(self):
+        # Display images in two columns with captions
+        col1, col2 = st.columns(2)
+
         if image1 is not None and image2 is not None:
-            st.image([image1, image2], width=100)
+            with col1:
+                st.image(image1, use_column_width=True)  # Display the first image
+                st.caption("وێنەی یەکەم")  # Caption under the first image
+
+            with col2:
+                st.image(image2, use_column_width=True)  # Display the second image
+                st.caption("وێنەی دووەم")  # Caption under the second image
 
         col1, col2, col3 = st.columns(3)
 
@@ -197,92 +206,17 @@ class FreezingPointCalculator:
                 'func': lambda mol, mr: mol * mr,
                 'equation': 'تواوە-mass = تواوە-mole × Mr',
                 'params': ['moles_solute', 'mr']
-            },
-            {
-                'param': 'kg_solvent',
-                'func': lambda mol, m: mol / m,
-                'equation': 'توێنەر-Kg = تواوە-mole / molality',
-                'params': ['moles_solute', 'molality']
-            },
-            {
-                'param': 'mr',
-                'func': lambda mass, mol: mass / mol,
-                'equation': 'Mr = تواوە-mass / تواوە-mole',
-                'params': ['mass_solute', 'moles_solute']
             }
         ]
 
-        while True:
-            changed = False
-            for calc in calculations:
-                if self.try_calculate_value(
-                    inputs,
-                    calc['param'],
-                    calc['func'],
-                    calc['equation'],
-                    calc['params']
-                ):
-                    changed = True
-            if not changed:
-                break
+        for calc in calculations:
+            self.try_calculate_value(inputs, calc['param'], calc['func'], calc['equation'], calc['params'])
 
         st.write("-" * 50)
+        st.write("ئەنجامەکان:")
+        for key, value in inputs.items():
+            st.write(f"{key}: {self.format_value(value)}")
 
-class BoilingPointCalculator:
-    def __init__(self):
-        st.title("بەرزبوونەوەی پلەی کوڵان: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی ")
-        self.create_layout()
-
-    def create_layout(self):
-        if image1 is not None and image2 is not None:
-            st.image([image1, image2], width=100)
-
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            self.delta_tb_input = st.text_input("ΔTb:", key="delta_tb")
-            self.kb_input = st.text_input("Kb:", key="kb")
-            self.molality_input = st.text_input("**molality:**", key="molality")
-
-        with col2:
-            self.t_solution_input = st.text_input("**پلەی کوڵانی گیراوە:**", key="t_solution")
-            self.t_solution_unit = st.selectbox("یەکە:", ["Celsius", "Kelvin"], key="t_solution_unit")
-            self.t_solvent_input = st.text_input("**پلەی کوڵانی توێنەر:**", key="t_solvent")
-            self.t_solvent_unit = st.selectbox("یەکە:", ["Celsius", "Kelvin"], key="t_solvent_unit")
-
-        with col3:
-            self.mass_solute_input = st.text_input("**بارستەی تواوە:**", key="mass_solute")
-            self.mass_solute_unit = st.selectbox("یەکە:", ["grams", "kilograms"], key="mass_solute_unit")
-            self.mr_input = st.text_input("**بارستەی مۆڵی  Mr:**", key="mr")
-            self.moles_solute_input = st.text_input("**مۆڵی تواوە:**", key="moles_solute")
-            self.kg_solvent_input = st.text_input("**بارستەی توێنەر:**", key="kg_solvent")
-            self.kg_solvent_unit = st.selectbox("یەکە:", ["grams", "kilograms"], key="kg_solvent_unit")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            self.calculate_button = st.button("**ژمێرکاری**", key="calculate")
-        with col2:
-            self.clear_button = st.button("**سڕینەوە**", key="clear")
-
-        if self.calculate_button:
-            self.calculate()
-        if self.clear_button:
-            self.clear_inputs()
-
-    # The rest of the methods for BoilingPointCalculator are similar to FreezingPointCalculator
-    # You should implement them similarly, replacing 'Tf' with 'Tb' where appropriate
-
-def main():
-    global image1, image2
+if __name__ == '__main__':
     image1, image2 = load_images()
-
-    st.sidebar.title("Choose Calculator")
-    calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
-
-    if calculator_type == "Freezing Point":
-        FreezingPointCalculator()
-    elif calculator_type == "Boiling Point":
-        BoilingPointCalculator()
-
-if __name__ == "__main__":
-    main()
+    FreezingPointCalculator()
