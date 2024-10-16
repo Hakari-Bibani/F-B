@@ -309,7 +309,7 @@ def main():
     st.markdown("---")
 
     # Add the footer sentence
-    st.markdown("<p style='text-align: center; color: gray; font-style: italic;'>This app is made by Hakari Jalal</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: gray; font-style: italic;'>دروستکردنی بەرنامە: م.هەکاری جلال</p>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
