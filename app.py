@@ -26,7 +26,8 @@ def load_images():
 
 class FreezingPointCalculator:
     def __init__(self):
-        st.title("نزمبونەوەی پلەی بەستن: ژمێرکاری بۆ تواوەی نا ئەلیکترۆلیتی")
+        st.title(" نزمبونەوەی پلەی بەستن - تواوەی نائەلیکترۆلیتی
+        ئەم بەرنامەیە دروستکراوە لەلایەن: م.هەکاری جلال محمد")
         self.create_layout()
 
     def create_layout(self):
@@ -291,6 +292,8 @@ class BoilingPointCalculator:
     # The rest of the methods for BoilingPointCalculator are similar to FreezingPointCalculator
     # You should implement them similarly, replacing 'Tf' with 'Tb' where appropriate
 
+# ... (previous code remains unchanged)
+
 def main():
     global image1, image2
     image1, image2 = load_images()
@@ -302,6 +305,12 @@ def main():
         FreezingPointCalculator()
     elif calculator_type == "Boiling Point":
         BoilingPointCalculator()
+
+    # Add a horizontal line for visual separation
+    st.markdown("---")
+
+    # Add the footer sentence
+    st.markdown("<p style='text-align: center; color: gray; font-style: italic;'>This app is made by Hakari Jalal</p>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
