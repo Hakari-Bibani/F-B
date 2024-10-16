@@ -244,9 +244,10 @@ def main():
     global image1, image2
     image1, image2 = load_images()
 
-    # Add the sentence at the top of the app
-    st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
-    م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
+    # Move the sentence to the top of the app
+    st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> 
+    بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. 
+    هیوادارم سوودی لێوەربگرن. م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
 
     st.sidebar.title("Choose Calculator")
     calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
@@ -257,4 +258,3 @@ def main():
         BoilingPointCalculator()
 
     st.markdown("---")
-
