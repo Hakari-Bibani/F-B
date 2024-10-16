@@ -7,9 +7,9 @@ def load_images():
         image1_path = os.path.join(current_dir, "image1.jpg")
         image2_path = os.path.join(current_dir, "image2.jpg")
 
-        # Open the images
-        image1 = Image.open(image1_path)
-        image2 = Image.open(image2_path)
+        # Open the images and resize them for better clarity
+        image1 = Image.open(image1_path).resize((600, 400))  # Increase resolution by resizing
+        image2 = Image.open(image2_path).resize((600, 400))  # Adjust dimensions as needed
 
         return image1, image2
     except FileNotFoundError:
@@ -26,9 +26,9 @@ class FreezingPointCalculator:
 
     def create_layout(self):
         if image1 is not None and image2 is not None:
-            # Display images with clearer resolution and captions
-            st.image(image1, width=300, caption="Image 1 Caption")  # Adjust the width as needed
-            st.image(image2, width=300, caption="Image 2 Caption")
+            # Display images with clearer resolution and captions below each image
+            st.image(image1, caption="Image 1: Freezing Point Calculation", use_column_width=True)
+            st.image(image2, caption="Image 2: Boiling Point Calculation", use_column_width=True)
 
         col1, col2, col3 = st.columns(3)
 
