@@ -66,13 +66,17 @@ class Calculator:
             self.clear_inputs()
 
     def clear_inputs(self):
-        for key in st.session_state.keys():
-            if key.startswith((f'delta_{self.t_symbol.lower()}', f'k{self.t_symbol.lower()}', 'molality', 't_solution', 't_solvent', 'mass_solute', 'mr', 'moles_solute', 'kg_solvent')):
+        keys_to_clear = [
+            f'delta_{self.t_symbol.lower()}', f'k{self.t_symbol.lower()}', 'molality', 't_solution', 't_solvent',
+            'mass_solute', 'mr', 'moles_solute', 'kg_solvent'
+        ]
+        for key in keys_to_clear:
+            if key in st.session_state:
                 st.session_state[key] = ""
 
     def get_float_value(self, key):
         try:
-            value = st.session_state[key].strip()
+            value = st.session_state.get(key, "").strip()
             return float(value) if value else None
         except ValueError:
             return None
@@ -110,22 +114,22 @@ class Calculator:
 
         inputs['t_solution'] = self.convert_temperature(
             inputs['t_solution'],
-            st.session_state.t_solution_unit
+            st.session_state.get('t_solution_unit', 'Celsius')
         )
         inputs['t_solvent'] = self.convert_temperature(
             inputs['t_solvent'],
-            st.session_state.t_solvent_unit
+            st.session_state.get('t_solvent_unit', 'Celsius')
         )
         if inputs['mass_solute'] is not None:
             inputs['mass_solute'] = self.convert_mass(
                 inputs['mass_solute'],
-                st.session_state.mass_solute_unit,
+                st.session_state.get('mass_solute_unit', 'grams'),
                 'grams'
             )
         if inputs['kg_solvent'] is not None:
             inputs['kg_solvent'] = self.convert_mass(
                 inputs['kg_solvent'],
-                st.session_state.kg_solvent_unit,
+                st.session_state.get('kg_solvent_unit', 'kilograms'),
                 'kilograms'
             )
 
@@ -133,19 +137,19 @@ class Calculator:
             {
                 'param': f'delta_{self.t_symbol.lower()}',
                 'func': lambda k, m: k * m,
-                f'equation': f'Δ{self.t_symbol} = K{self.t_symbol} × molality',
+                'equation': f'Δ{self.t_symbol} = K{self.t_symbol} × molality',
                 'params': [f'k{self.t_symbol.lower()}', 'molality']
             },
             {
                 'param': f'delta_{self.t_symbol.lower()}',
                 'func': lambda ts, tsv: ts - tsv,
-                f'equation': f'Δ{self.t_symbol} = گیراوە-T - توێنەر-T',
+                'equation': f'Δ{self.t_symbol} = گیراوە-T - توێنەر-T',
                 'params': ['t_solution', 't_solvent']
             },
             {
                 'param': 'molality',
                 'func': lambda dt, k: dt / k,
-                f'equation': f'molality = Δ{self.t_symbol} / K{self.t_symbol}',
+                'equation': f'molality = Δ{self.t_symbol} / K{self.t_symbol}',
                 'params': [f'delta_{self.t_symbol.lower()}', f'k{self.t_symbol.lower()}']
             },
             {
