@@ -452,7 +452,7 @@ def main():
     image1, image2 = load_images()
 
     st.sidebar.title("Choose Calculator")
-    calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
+calculator_type = st.sidebar.radio("Select the calculator:", ("نزمبونەوەی پلەی بەستن", "بەرزبونەوەی پلەی کوڵان"))
 
     if calculator_type == "Freezing Point":
         FreezingPointCalculator()
