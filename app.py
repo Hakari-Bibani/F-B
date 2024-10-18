@@ -451,14 +451,15 @@ def main():
     global image1, image2
     image1, image2 = load_images()
 
-    st.sidebar.title("Choose Calculator")
+   st.sidebar.title("Choose Calculator")
 calculator_type = st.sidebar.radio("Select the calculator:", ("نزمبونەوەی پلەی بەستن", "بەرزبونەوەی پلەی کوڵان"))
 
-    if calculator_type == "Freezing Point":
-        FreezingPointCalculator()
-    elif calculator_type == "Boiling Point":
-        BoilingPointCalculator()
-
+if calculator_type == "نزمبونەوەی پلەی بەستن":
+    # Add your freezing point code here
+    pass
+elif calculator_type == "بەرزبونەوەی پلەی کوڵان":
+    # Add your boiling point code here
+    pass
   
    # Add the footer sentence
 st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
