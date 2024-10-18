@@ -18,7 +18,7 @@ def load_images():
         
         return image1, image2
     except FileNotFoundError:
-        st.warning("Image files not found. Displaying app without images.")
+        st.warning("Image files not found. Please ensure 'image1.jpg' and 'image2.jpg' are in the same directory as this script.")
         return None, None
     except Exception as e:
         st.error(f"An error occurred while loading images: {str(e)}")
@@ -246,10 +246,11 @@ class BoilingPointCalculator:
             col1, col2 = st.columns(2)
             with col1:
                 st.image(image1, use_column_width=True)
-                st.caption("Image 1 Description")
+                st.caption("م.هەکاری جلال")
             with col2:
                 st.image(image2, use_column_width=True)
-                st.caption("Image 2 Description")
+                st.caption("گروپی تێلێگرام")
+
 
         col1, col2, col3 = st.columns(3)
 
@@ -449,20 +450,21 @@ class BoilingPointCalculator:
     
 def main():
     global image1, image2
+    
+    # Add the text at the top
+    st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'>
+    بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
+    م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
+    
     image1, image2 = load_images()
 
     st.sidebar.title("Choose Calculator")
-    calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
+    calculator_type = st.sidebar.radio("Select the calculator:", ("نزمبونەوەی پلەی بەستن", "بەرزبونەوەی پلەی کوڵان"))
 
-    if calculator_type == "Freezing Point":
+    if calculator_type == "نزمبونەوەی پلەی بەستن":
         FreezingPointCalculator()
-    elif calculator_type == "Boiling Point":
+    elif calculator_type == "بەرزبونەوەی پلەی کوڵان":
         BoilingPointCalculator()
-
-  
-   # Add the footer sentence
-st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
-م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
