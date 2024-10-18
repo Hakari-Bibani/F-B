@@ -451,11 +451,11 @@ def main():
     global image1, image2
     image1, image2 = load_images()
 
-       st.sidebar.title("Choose Calculator")
-    calculator_type = st.sidebar.radio(
-        "Select the calculator:",
-        ("Freezing Point (نزمبونەوەی پلەی بەستن)", "Boiling Point (بەرزبونەوەی پلەی کوڵان)")
-    )
+  st.sidebar.title("Choose Calculator")
+calculator_type = st.sidebar.radio(
+    "Select the calculator:",
+    ("Freezing Point (نزمبونەوەی پلەی بەستن)", "Boiling Point (بەرزبونەوەی پلەی کوڵان)")
+)
 
   
    # Add the footer sentence
