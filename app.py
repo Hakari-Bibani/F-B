@@ -326,7 +326,7 @@ class BoilingPointCalculator:
             values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
         else:
             values_str = " = " + " / ".join(f"{v:.4f}" for v in values)
-        st.write(f"{equation}{values_str} = ...")  # Omit result display
+        st.write(f"{equation}{values_str} = {result:.4f}")  # Display the result
 
     def try_calculate_value(self, inputs, param_name, calculation_func, equation, params_needed):
         if inputs[param_name] is None and all(inputs[p] is not None for p in params_needed):
@@ -422,14 +422,13 @@ class BoilingPointCalculator:
                 'func': lambda mol, m: mol / m,
                 'equation': 'توێنەر-Kg = تواوە-mole / molality',
                 'params': ['moles_solute', 'molality']
-            },
-            {
-                'param': 'mr',
-                'func': lambda mass, mol: mass / mol,
-                'equation': 'Mr = تواوە-mass / تواوە-mole',
-                'params': ['mass_solute', 'moles_solute']
             }
         ]
+
+        for calc in calculations:
+            if self.try_calculate_value(inputs, calc['param'], calc['func'], calc['equation'], calc['params']):
+                break
+
 
         while True:
             changed = False
