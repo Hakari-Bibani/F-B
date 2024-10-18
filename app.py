@@ -39,6 +39,7 @@ class FreezingPointCalculator:
                 st.image(image2, use_column_width=True)
                 st.caption("گروپی تێلێگرام")
 
+
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -250,8 +251,7 @@ class BoilingPointCalculator:
             with col2:
                 st.image(image2, use_column_width=True)
                 st.caption("گروپی تێلێگرام")
-
-
+		    
         col1, col2, col3 = st.columns(3)
 
         with col1:
