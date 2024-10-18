@@ -72,7 +72,7 @@ class FreezingPointCalculator:
         if self.clear_button:
             self.clear_inputs()
 
-    def clear_inputs(self):
+   def clear_inputs(self):
         keys_to_clear = [
             "delta_tf", "kf", "molality", "t_solution", "t_solvent",
             "mass_solute", "mr", "moles_solute", "kg_solvent"
@@ -81,8 +81,16 @@ class FreezingPointCalculator:
             if key in st.session_state:
                 del st.session_state[key]
 
+        # Clear calculation results
+        if 'calculation_results' in st.session_state:
+            del st.session_state['calculation_results']
+        
+        # Reset input fields
         for key in keys_to_clear:
             st.session_state[key] = ""
+
+        # Refresh the page to clear displayed results and reset input fields
+        st.experimental_rerun()
 
     def get_float_value(self, key):
         try:
@@ -284,7 +292,7 @@ class BoilingPointCalculator:
         if self.clear_button:
             self.clear_inputs()
 
-    def clear_inputs(self):
+     def clear_inputs(self):
         keys_to_clear = [
             "delta_tb", "kb", "molality", "t_solution", "t_solvent",
             "mass_solute", "mr", "moles_solute", "kg_solvent"
@@ -293,8 +301,16 @@ class BoilingPointCalculator:
             if key in st.session_state:
                 del st.session_state[key]
 
+        # Clear calculation results
+        if 'calculation_results' in st.session_state:
+            del st.session_state['calculation_results']
+        
+        # Reset input fields
         for key in keys_to_clear:
             st.session_state[key] = ""
+
+        # Refresh the page to clear displayed results and reset input fields
+        st.experimental_rerun()
 
     def get_float_value(self, key):
         try:
