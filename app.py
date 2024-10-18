@@ -18,7 +18,7 @@ def load_images():
         
         return image1, image2
     except FileNotFoundError:
-        st.warning("Image files not found. Please ensure 'image1.jpg' and 'image2.jpg' are in the same directory as this script.")
+        st.warning("Image files not found. Displaying app without images.")
         return None, None
     except Exception as e:
         st.error(f"An error occurred while loading images: {str(e)}")
@@ -39,11 +39,10 @@ class FreezingPointCalculator:
                 st.image(image2, use_column_width=True)
                 st.caption("گروپی تێلێگرام")
 
-
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            self.delta_tf_input = st.text_input("Δtf:", key="delta_tf")
+            self.delta_tf_input = st.text_input("ΔTf:", key="delta_tf")
             self.kf_input = st.text_input("Kf:", key="kf")
             self.molality_input = st.text_input("**molality:**", key="molality")
 
@@ -72,7 +71,7 @@ class FreezingPointCalculator:
         if self.clear_button:
             self.clear_inputs()
 
-   def clear_inputs(self):
+    def clear_inputs(self):
         keys_to_clear = [
             "delta_tf", "kf", "molality", "t_solution", "t_solvent",
             "mass_solute", "mr", "moles_solute", "kg_solvent"
@@ -81,16 +80,8 @@ class FreezingPointCalculator:
             if key in st.session_state:
                 del st.session_state[key]
 
-        # Clear calculation results
-        if 'calculation_results' in st.session_state:
-            del st.session_state['calculation_results']
-        
-        # Reset input fields
         for key in keys_to_clear:
             st.session_state[key] = ""
-
-        # Refresh the page to clear displayed results and reset input fields
-        st.experimental_rerun()
 
     def get_float_value(self, key):
         try:
@@ -118,7 +109,7 @@ class FreezingPointCalculator:
         return f"{value:.4f}" if value is not None else "unknown"
 
     def show_calculation_step(self, equation, values, result):
-        if equation == 'Δtf = گیراوە-T - توێنەر-T':
+        if equation == 'ΔTf = گیراوە-T - توێنەر-T':
             values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
         else:
             values_str = " = " + " / ".join(f"{v:.4f}" for v in values)
@@ -174,19 +165,19 @@ class FreezingPointCalculator:
             {
                 'param': 'delta_tf',
                 'func': lambda kf, m: kf * m,
-                'equation': 'Δtf = Kf × molality',
+                'equation': 'ΔTf = Kf × molality',
                 'params': ['kf', 'molality']
             },
             {
                 'param': 'delta_tf',
                 'func': lambda ts, tsv: ts - tsv,
-                'equation': 'Δtf = گیراوە-T - توێنەر-T',
+                'equation': 'ΔTf = گیراوە-T - توێنەر-T',
                 'params': ['t_solution', 't_solvent']
             },
             {
                 'param': 'molality',
                 'func': lambda dt, kf: dt / kf,
-                'equation': 'molality = Δtf / Kf',
+                'equation': 'molality = ΔTf / Kf',
                 'params': ['delta_tf', 'kf']
             },
             {
@@ -255,15 +246,15 @@ class BoilingPointCalculator:
             col1, col2 = st.columns(2)
             with col1:
                 st.image(image1, use_column_width=True)
-                st.caption("م.هەکاری جلال")
+                st.caption("Image 1 Description")
             with col2:
                 st.image(image2, use_column_width=True)
-                st.caption("گروپی تێلێگرام")
-		    
+                st.caption("Image 2 Description")
+
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            self.delta_tb_input = st.text_input("Δtb:", key="delta_tb")
+            self.delta_tb_input = st.text_input("ΔTb:", key="delta_tb")
             self.kb_input = st.text_input("Kb:", key="kb")
             self.molality_input = st.text_input("**molality:**", key="molality")
 
@@ -292,7 +283,7 @@ class BoilingPointCalculator:
         if self.clear_button:
             self.clear_inputs()
 
-     def clear_inputs(self):
+    def clear_inputs(self):
         keys_to_clear = [
             "delta_tb", "kb", "molality", "t_solution", "t_solvent",
             "mass_solute", "mr", "moles_solute", "kg_solvent"
@@ -301,16 +292,8 @@ class BoilingPointCalculator:
             if key in st.session_state:
                 del st.session_state[key]
 
-        # Clear calculation results
-        if 'calculation_results' in st.session_state:
-            del st.session_state['calculation_results']
-        
-        # Reset input fields
         for key in keys_to_clear:
             st.session_state[key] = ""
-
-        # Refresh the page to clear displayed results and reset input fields
-        st.experimental_rerun()
 
     def get_float_value(self, key):
         try:
@@ -338,7 +321,7 @@ class BoilingPointCalculator:
         return f"{value:.4f}" if value is not None else "unknown"
 
     def show_calculation_step(self, equation, values, result):
-        if equation == 'Δtb = گیراوە-T - توێنەر-T':
+        if equation == 'ΔTb = گیراوە-T - توێنەر-T':
             values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
         else:
             values_str = " = " + " / ".join(f"{v:.4f}" for v in values)
@@ -394,19 +377,19 @@ class BoilingPointCalculator:
             {
                 'param': 'delta_tb',
                 'func': lambda kb, m: kb * m,
-                'equation': 'Δtb = Kb × molality',
+                'equation': 'ΔTb = Kb × molality',
                 'params': ['kb', 'molality']
             },
             {
                 'param': 'delta_tb',
                 'func': lambda ts, tsv: ts - tsv,
-                'equation': 'Δtb = گیراوە-T - توێنەر-T',
+                'equation': 'ΔTb = گیراوە-T - توێنەر-T',
                 'params': ['t_solution', 't_solvent']
             },
             {
                 'param': 'molality',
                 'func': lambda dt, kb: dt / kb,
-                'equation': 'molality = Δtb / Kb',
+                'equation': 'molality = ΔTb / Kb',
                 'params': ['delta_tb', 'kb']
             },
             {
@@ -466,21 +449,20 @@ class BoilingPointCalculator:
     
 def main():
     global image1, image2
-    
-    # Add the text at the top
-    st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'>
-    بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
-    م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
-    
     image1, image2 = load_images()
 
     st.sidebar.title("Choose Calculator")
-    calculator_type = st.sidebar.radio("Select the calculator:", ("نزمبونەوەی پلەی بەستن", "بەرزبونەوەی پلەی کوڵان"))
+    calculator_type = st.sidebar.radio("Select the calculator:", ("Freezing Point", "Boiling Point"))
 
-    if calculator_type == "نزمبونەوەی پلەی بەستن":
+    if calculator_type == "Freezing Point":
         FreezingPointCalculator()
-    elif calculator_type == "بەرزبونەوەی پلەی کوڵان":
+    elif calculator_type == "Boiling Point":
         BoilingPointCalculator()
+
+  
+   # Add the footer sentence
+st.markdown(""" <p style='text-align: center; color: gray; font-style: italic;'> بۆ یەکەمین جار ئەم جۆرە بەرنامەیە دروستکراوە و گەشەی پێدراوە لە کوردستان و عێراق دا. هیوادارم سوودی لێوەربگرن.
+م. هەکاری جلال محمد </p> """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
