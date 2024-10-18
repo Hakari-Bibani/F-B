@@ -42,7 +42,7 @@ class FreezingPointCalculator:
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            self.delta_tf_input = st.text_input("ΔTf:", key="delta_tf")
+            self.delta_tf_input = st.text_input("Δtf:", key="delta_tf")
             self.kf_input = st.text_input("Kf:", key="kf")
             self.molality_input = st.text_input("**molality:**", key="molality")
 
@@ -109,7 +109,7 @@ class FreezingPointCalculator:
         return f"{value:.4f}" if value is not None else "unknown"
 
     def show_calculation_step(self, equation, values, result):
-        if equation == 'ΔTf = گیراوە-T - توێنەر-T':
+        if equation == 'Δtf = گیراوە-T - توێنەر-T':
             values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
         else:
             values_str = " = " + " / ".join(f"{v:.4f}" for v in values)
@@ -165,19 +165,19 @@ class FreezingPointCalculator:
             {
                 'param': 'delta_tf',
                 'func': lambda kf, m: kf * m,
-                'equation': 'ΔTf = Kf × molality',
+                'equation': 'Δtf = Kf × molality',
                 'params': ['kf', 'molality']
             },
             {
                 'param': 'delta_tf',
                 'func': lambda ts, tsv: ts - tsv,
-                'equation': 'ΔTf = گیراوە-T - توێنەر-T',
+                'equation': 'Δtf = گیراوە-T - توێنەر-T',
                 'params': ['t_solution', 't_solvent']
             },
             {
                 'param': 'molality',
                 'func': lambda dt, kf: dt / kf,
-                'equation': 'molality = ΔTf / Kf',
+                'equation': 'molality = Δtf / Kf',
                 'params': ['delta_tf', 'kf']
             },
             {
@@ -255,7 +255,7 @@ class BoilingPointCalculator:
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            self.delta_tb_input = st.text_input("ΔTb:", key="delta_tb")
+            self.delta_tb_input = st.text_input("Δtb:", key="delta_tb")
             self.kb_input = st.text_input("Kb:", key="kb")
             self.molality_input = st.text_input("**molality:**", key="molality")
 
@@ -322,7 +322,7 @@ class BoilingPointCalculator:
         return f"{value:.4f}" if value is not None else "unknown"
 
     def show_calculation_step(self, equation, values, result):
-        if equation == 'ΔTb = گیراوە-T - توێنەر-T':
+        if equation == 'Δtb = گیراوە-T - توێنەر-T':
             values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
         else:
             values_str = " = " + " / ".join(f"{v:.4f}" for v in values)
@@ -378,19 +378,19 @@ class BoilingPointCalculator:
             {
                 'param': 'delta_tb',
                 'func': lambda kb, m: kb * m,
-                'equation': 'ΔTb = Kb × molality',
+                'equation': 'Δtb = Kb × molality',
                 'params': ['kb', 'molality']
             },
             {
                 'param': 'delta_tb',
                 'func': lambda ts, tsv: ts - tsv,
-                'equation': 'ΔTb = گیراوە-T - توێنەر-T',
+                'equation': 'Δtb = گیراوە-T - توێنەر-T',
                 'params': ['t_solution', 't_solvent']
             },
             {
                 'param': 'molality',
                 'func': lambda dt, kb: dt / kb,
-                'equation': 'molality = ΔTb / Kb',
+                'equation': 'molality = Δtb / Kb',
                 'params': ['delta_tb', 'kb']
             },
             {
