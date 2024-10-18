@@ -321,7 +321,7 @@ class BoilingPointCalculator:
     def format_value(self, value):
         return f"{value:.4f}" if value is not None else "unknown"
 
-    def show_calculation_step(self, equation, values, result):
+  def show_calculation_step(self, equation, values, result):
     if equation == 'Δtb = گیراوە-T - توێنەر-T':
         values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
     else:
