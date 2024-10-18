@@ -321,12 +321,12 @@ class BoilingPointCalculator:
     def format_value(self, value):
         return f"{value:.4f}" if value is not None else "unknown"
 
-  def show_calculation_step(self, equation, values, result):
-    if equation == 'Δtb = گیراوە-T - توێنەر-T':
-        values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
-    else:
-        values_str = " = " + " / ".join(f"{v:.4f}" for v in values)
-    st.write(f"{equation}{values_str} = {result:.4f}")  # Display the final result
+    def show_calculation_step(self, equation, values, result):
+        if equation == 'Δtb = گیراوە-T - توێنەر-T':
+            values_str = f" = {values[0]:.4f} - {values[1]:.4f}"
+        else:
+            values_str = " = " + " / ".join(f"{v:.4f}" for v in values)
+        st.write(f"{equation}{values_str} = ...")  # Omit result display
 
     def try_calculate_value(self, inputs, param_name, calculation_func, equation, params_needed):
         if inputs[param_name] is None and all(inputs[p] is not None for p in params_needed):
